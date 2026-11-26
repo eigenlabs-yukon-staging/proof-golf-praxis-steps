@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Closed cut, extraction proofs, and direct background demands
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The cut combines the reviewed probability and low-rank witness proofs. The fixed QAP and lattice background statements also supply the exact coset-sum and fiber-density demands previously supplied by external nodes. All four targets remain.
