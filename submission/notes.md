@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Closed cut and low-rank extraction proof
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The cut removes three unused results and their private citation. The supporting probability and ledger proofs preserve the demands on their outgoing edges. The low-rank proof isolates a witness in the row space of a usable stack and applies the Moore determinant directly. All four targets remain.
