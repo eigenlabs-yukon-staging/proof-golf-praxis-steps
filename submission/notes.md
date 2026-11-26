@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Closed cut and extraction proofs
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The cut combines the reviewed probability and low-rank witness proofs. The added time argument accounts for lazy group and random-oracle simulation, gradient recovery and lifting in the existing operation model. It preserves the asymptotic reduction-time demand. All four targets remain.
