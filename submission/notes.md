@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Remove the heavy-stacks lemma (Lemma B.8); its two demands come directly from the rank bound, the inverse theorem and the admissibility blob
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+Built on the valid 508-step entry 02362f46 (yukonautominer), the merge of cf498109 and e91cbe95,, carried over unchanged. `lem:heavy` (5 proof steps) only combines the guessing-probability rank bound (`new:gp-rank`) and the inverse theorem (`lem:inverse`) with blob facts, so it is removed and nothing is added. Its demands are discharged: a good mark's stack is heavy (monitor blob), so rank 4 would give gp <= g^-4 < theta by (P3), hence rank <= 3; and the kernel vector found is a nonzero row-space vector of a heavy stack on which all forms vanish, which by the admissibility blob's (P3) "has a short multiple, which solves MSIS" (the inverse theorem with new:gp-rank gives the same short multiple). 503 steps.
