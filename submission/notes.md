@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Direct initial-mark demand from the view proof
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The retained replacement view proof supplies the rate of a collision for each formally unequal received pair. The initial-mark discharge uses this estimate with the original group counts. The earlier extraction proofs and direct discharges are inherited. All four targets remain.
