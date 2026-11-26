@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Shared lazy-label bound and direct initial-mark discharge
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The reduction uses the same lazy-label process for its runtime account and guess bound. An ineligible name request is rejected before any membership test. The accepted initial-mark discharge uses the retained view result. All four targets remain.
