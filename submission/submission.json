@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
+  "title": "Prune unused results and bound stack guessing probabilities",
   "claims": [
-    "substitution.json is a VALID substitution of the Praxis paper DAG in the sense of rules.md: structural checks S1 to S8 pass on exactly these bytes, and the verifier lists no semantic obligation for it."
+    "substitution.json is a VALID substitution of the Praxis paper DAG in the sense of rules.md: structural checks S1 to S8 pass on exactly these bytes, and each of the 2 semantic obligations the verifier lists for it (O-discharge, O-proof, O-cite) holds as stated, with the same constants, bounds and hypotheses."
   ],
   "experiments": [],
   "checks": [
@@ -10,7 +10,7 @@
       "check": "paperdag_gate",
       "inputs": {
         "substitution": [
-          "eNpNjjsOgzAQBXtOsaIGBWPAMWWuEaVYs2uwxE/YpIly9/ApSDn7RqP9RACxnZYBQ1xDPOPMS0rYpn41PriwBjeNNxEnu2fQ8241QrDQVhBmVktCtDLThFprLKqSc0ZJwiqbF6oSrE2pVMVWiezOhSypOGtbvT9yjy3bu5FrCB3D8QKgh3k1vfMdUwLjFDo3trDwML3/D0jEdObObes9Xwdv0wVMLfsLyfmmw6U99egb/QC7gU46"
+          "eNq1VW1r40YQ/p5fMZiFJmClcewk50AL4aCFUMpRCvlwSo6VNJKWSLvqvjhOc/7vnVlJlnM5rqWlEBRrdnZennme0csRwKw0tpV+dg2zTnZok0JWiQuZ88oHr4z+fjGbs18mHbJXvljgYl0uCnlWrpeFlOXybF3I9XotV5cXeI5yWSzKq/J8dXW5wHV2cXV1ieXV4uwdrpYXxaqPRtGbGO6DDRoh6OCwAIsuNN6B1AVkJtDTeZk/QhXQOaUr6KzJZKYa5RW6PpLF1mw41Ed6o/cG2+snTGpV0IXoMhit1I+J0TjaKFZ3XbukUC1qR52OB7j1ZD+8WnUJ356R5T4mlUWxz/gSn2RUbJtpfNr7z8ejR6XjIQVr5WRuZIYN239+2+Bzj4CbvLVse8jUxvgkN01oNeRGF4rnNHVLrgSbR2orzvUnYwE3aJ8HNEWa0sTrrIQ7Mec3Q3OX3lhO8FJ1u+PJ4SRNG4Tq4SX5wo37201+O3EKUx6xEaA0KBqlNU/gOpnj1zNtHtLUm47SVPjtQsTp1B5uu0Yqzc29H/sH+vM1gja6Y4AIGWOJAwSEA1PGM5oCdkgP7el3Fzx4Ew+cbLsG7UEKGoQpOcEv6EHcCMgwelI9Vm3BZJ4KIMpmA6o8PNk0IO4+5QIIBa9yen8+TfX72hiHIIEkpGIt/excrGfbBxG3NAul8yYwbwcPEGcCnmrUDCvBCXSd+vsTreG4h60L+0kJIDGDUGmq9Mdf79PUoW8VSQs4+FOt8hpKtSU8uBNiDrWShT5CGasfCzPBO1UgV0WN55LUeVgSlcE1gCoBt1wyFlTP768QznFE/evdgiLIScWAciirgI1sQrwmbqyAWtIm8NAa56lDhM6QRjKio6T/lWZ68/yo81sxpN+rQTavpMTtaZpUh7kqFWWKl7iPMYFgjn++/bwTXN8BJ75zr2iT10blzChCgjAWcVcx0Q9TB614rXJmik+IUXk3NEJZ8WwrtaEA/1R3fU20HAhQQS8/fFuInIqFKFl5SVQesTH3TIwNsYA7a4i50jJZWjL2CgTbw7E/DDofmcHTGACOWPXIUn2lyoiX47wU8ypEJAZxKB0HN7lNyeYMA6Pxn7dCVOxuv5qxqOjT8GY5jxs4I61WljfrpPXSmjaeNSa7jmp2SdVN5958udj7nPN/m6JnVuII6Lz+//LIolUsmaiBv0+zh7BQLq+lrfAtjIzu3vrm+zh/ba5Rbp5ng+1+nz97fh3hTSWHzlRGGD9kv5EHC6pBSSwsTbCDlqqH4zScny/OOcYJ8O/L1WRdncxpizX0JUrD2TJ7xwo//rA8OQWmtEOWLnEV/wgybgvZ9Ztp+DhMQnpEq7EZ9DSP0uce6apzYynd8d3Jj32eQ24e7Y7+AnXJ+7I="
         ]
       }
     }

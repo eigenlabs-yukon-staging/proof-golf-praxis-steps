@@ -1,9 +1,52 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Prune unused results and bound stack guessing probabilities",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "ext:hs",
+    "lem:gp-rank"
+  ],
+  "add": [
+    {
+      "id": "new:gp-rank",
+      "kind": "lemma",
+      "label": "Guessing probability bounds",
+      "name": "Pivot-column conditioning",
+      "statement": "For every stack $\\mathbf W$, $\\operatorname{gp}(\\mathbf W)\\le g^{-\\operatorname{rank}\\mathbf W}$. For every $v$ in its row space, $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$.",
+      "explain": "Condition on the nonpivot coordinates of the independent input to the sampler.",
+      "proof": "Let $A$ be the matrix obtained by stacking all $W_c$ vertically.\nChoose a basis of columns indexed by $J$, including column $0$ whenever it is nonzero.\nCondition on $r_i$ for $i\\in[N]\\setminus J$, which fixes the contribution of all columns outside $J$ because column $0$ is zero if excluded.\nThe independence of the columns indexed by $J$ implies each fixed value of $Ar$ has at most one possible assignment to $r_J$.\nThe conditional probability of any specified $r_J$ is at most $g^{-|J|}$ by the sampler's independent choices on $[N]$ and its conditional uniformity at $0$.\nAveraging gives $\\operatorname{gp}(\\mathbf W)\\le g^{-|J|}$ since $|J|=\\operatorname{rank}\\mathbf W$.\nFor a row-space vector $v$, the linear form $v^\\top r$ is a linear function of $Ar$.\nThe most probable fiber of $Ar$ is thus contained in one fiber of $v^\\top r$, giving $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$."
+    }
+  ],
+  "edges": [
+    {
+      "kind": "background",
+      "from": "blob:stacks-gp",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:sampler-search",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:gp-rank"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:gp-rank",
+        "lem:heavy"
+      ],
+      "by": [
+        "new:gp-rank"
+      ],
+      "argument": "Rank at least four gives g^(\u2212rank) \u2264 g^(\u22124), below \u03b8 by (P3). The second inequality applies to the row-space kernel vector, and heaviness gives gp(W)>\u03b8."
+    }
+  ]
 }
