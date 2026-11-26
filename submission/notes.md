@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Closed cut and two extraction bounds
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The substitution removes three unused results and their private citation. It replaces the security-ledger estimate with convex interpolation and proves the initial mark estimate by a union bound over the received pairs. The protected gate reports 513 steps and four semantic obligations.

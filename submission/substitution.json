@@ -1,9 +1,98 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Prune unused results and streamline two extraction bounds",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "ext:hs",
+    "lem:ledger",
+    "lem:init"
+  ],
+  "add": [
+    {
+      "id": "new:ledger",
+      "kind": "lemma",
+      "label": "Ledger interpolation",
+      "name": "Convex bound for the security ledger",
+      "statement": "Under admissibility condition (P5), for every integer $0\\le Q<2^\\lambda$, $E(2Q+2)\\le (Q+1)/2^\\lambda$.",
+      "explain": "Interpolate between the two endpoint bounds in (P5).",
+      "proof": "The quadratic polynomial $F(Q):=E(2Q+2)-(Q+1)/2^\\lambda$ has coefficient $2\\theta+20\\varepsilon_f$ at $Q^2$ by the formula for $E$.\nThe nonnegative quadratic coefficient makes $F$ convex.\nThe first inequality in (P5) gives $F(0)\\le 0$.\nAdding the two inequalities of (P5) gives $F(2^\\lambda-1)=E(2^{\\lambda+1})-1\\le 0$.\nConvexity gives $F(Q)\\le 0$ throughout $[0,2^\\lambda-1]$."
+    },
+    {
+      "id": "new:init",
+      "kind": "lemma",
+      "label": "Initial collision bound",
+      "name": "Union bound for the initial mark",
+      "statement": "A run has first mark $\\mathsf{init}$ with probability at most $\\sum_{s\\in\\{1,2,T\\}}\\binom{L_s}{2}\\varepsilon_f$.",
+      "explain": "Count possible intra-group pairs.",
+      "proof": "By (M1), a first mark $\\mathsf{init}$ requires equal labels for a formally unequal pair among the $L_s$ received elements of some group $s\\in\\{1,2,T\\}$.\nBy injectivity of the group label map, every such pair then has equal exponents.\nThe union bound over the $\\binom{L_s}{2}$ unordered received pairs in each group gives $\\Pr[\\text{first mark is }\\mathsf{init}]\\le\\sum_{s\\in\\{1,2,T\\}}\\binom{L_s}{2}\\varepsilon_f$."
+    }
+  ],
+  "edges": [
+    {
+      "kind": "background",
+      "from": "blob:bound-e",
+      "to": "new:ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:bound-e",
+      "to": "new:init"
+    },
+    {
+      "kind": "background",
+      "from": "blob:monitor",
+      "to": "new:init"
+    },
+    {
+      "kind": "uses",
+      "from": "lem:view",
+      "to": "new:init",
+      "demand": "For any formally unequal pair of received expressions in G_1 or G_2, the probability of equal exponents over the encryption coins is at most \u03b5_f. The same bound holds for the sole received pair in G_T, whose exponent difference 1\u2212\u03b1\u03ba is nonidentically zero at every fixed r."
+    },
+    {
+      "kind": "background",
+      "from": "blob:ggm",
+      "to": "new:init"
+    },
+    {
+      "kind": "background",
+      "from": "blob:expressions",
+      "to": "new:init"
+    },
+    {
+      "kind": "background",
+      "from": "blob:enc",
+      "to": "new:init"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:ledger",
+        "thm:extraction"
+      ],
+      "by": [
+        "new:ledger"
+      ],
+      "argument": "The statement is the demanded bound with the same range and (P5) premise."
+    },
+    {
+      "edge": [
+        "lem:init",
+        "thm:extraction"
+      ],
+      "by": [
+        "new:init"
+      ],
+      "argument": "The statement is the demanded initial-mark probability bound."
+    }
+  ]
 }
