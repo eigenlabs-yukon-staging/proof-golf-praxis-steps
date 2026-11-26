@@ -1,9 +1,88 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Prune unused results and simplify two supporting probability bounds",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "ext:hs",
+    "lem:half",
+    "ext:br",
+    "lem:gp-rank"
+  ],
+  "add": [
+    {
+      "id": "new:half",
+      "kind": "lemma",
+      "label": "Conditioned failure bound",
+      "name": "Correct guess and extraction failure under the coupling",
+      "statement": "In the extractability experiment, $\\Pr[b'=b\\land\\mathsf{Fail}]\\le 1/2+(f_0+f_1)/4$.",
+      "explain": "Condition on the coupled randomness shared by the two message experiments.",
+      "proof": "For a fixing $C$ of the coins of the coupled run $\\mathsf{R}_\\$$ with no target query, the conditional probability of $b'=b\\land\\mathsf{Fail}$ is at most $1/2$ because the output bit is fixed independently of $b$.\nFor a fixing $C$ with a target query, the same conditional probability is at most $\\big(1+\\Pr[\\mathsf{Fail}\\mid C]\\big)/2$ by the pointwise bound $\\mathbf1_{b'=b\\land\\mathsf{Fail}}\\le (1+\\mathbf1_{\\mathsf{Fail}})/2$.\nAveraging the two bounds over the coupled coins and the uniform bit gives $\\Pr[b'=b\\land\\mathsf{Fail}]\\le 1/2+(f_0+f_1)/4$."
+    },
+    {
+      "id": "new:gp-rank",
+      "kind": "lemma",
+      "label": "Guessing probability bounds",
+      "name": "Pivot-column conditioning",
+      "statement": "For a stack $\\mathbf W$, let $A$ be the matrix obtained by stacking its cells vertically. Then $\\operatorname{gp}(\\mathbf W)\\le g^{-\\operatorname{rank}\\mathbf W}$. For every $v$ in its row space, $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$.",
+      "explain": "Condition on the nonpivot coordinates of the independent input to the sampler.",
+      "proof": "Choose a basis of columns indexed by $J$, including column $0$ whenever it is nonzero.\nCondition on $r_i$ for $i\\in[N]\\setminus J$, which fixes the contribution of all columns outside $J$ because column $0$ is zero if excluded.\nThe independence of the columns indexed by $J$ implies each fixed value of $Ar$ has at most one possible assignment to $r_J$.\nThe conditional probability of any specified $r_J$ is at most $g^{-|J|}$ by the sampler's independent choices on $[N]$ and its conditional uniformity at $0$.\nAveraging gives $\\operatorname{gp}(\\mathbf W)\\le g^{-|J|}$ since $|J|=\\operatorname{rank}\\mathbf W$.\nFor a row-space vector $v$, choose $a$ with $v^\\top=a^\\top A$.\nFor each $u$, event inclusion gives $\\Pr[Ar=u]\\le\\Pr[v^\\top r=a^\\top u]$.\nTaking maxima gives $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$."
+    }
+  ],
+  "edges": [
+    {
+      "kind": "background",
+      "from": "blob:bound-e",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:symbolic-game",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:we",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:stacks-gp",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:sampler-search",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:gp-rank"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:half",
+        "cor:ext-error"
+      ],
+      "by": [
+        "new:half"
+      ],
+      "argument": "The bound is the exact demanded inequality in the same experiment."
+    },
+    {
+      "edge": [
+        "lem:gp-rank",
+        "lem:heavy"
+      ],
+      "by": [
+        "new:gp-rank"
+      ],
+      "argument": "Rank at least four gives g^(\u2212rank) \u2264 g^(\u22124), below \u03b8 by (P3). The second inequality applies to the row-space kernel vector, and heaviness gives gp(W)>\u03b8."
+    }
+  ]
 }
