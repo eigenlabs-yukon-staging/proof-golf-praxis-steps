@@ -1,9 +1,53 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Prune unused results and prove the conditioned failure bound",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "ext:hs",
+    "lem:half",
+    "ext:br"
+  ],
+  "add": [
+    {
+      "id": "new:half",
+      "kind": "lemma",
+      "label": "Conditioned failure bound",
+      "name": "Correct guess and extraction failure under the coupling",
+      "statement": "In the extractability experiment, $\\Pr[b'=b\\land\\mathsf{Fail}]\\le 1/2+(f_0+f_1)/4$.",
+      "explain": "Condition on the coupled randomness shared by the two message experiments.",
+      "proof": "For a fixing $C$ of the coins of the coupled run $\\mathsf{R}_\\$$ with no target query, the conditional probability of $b'=b\\land\\mathsf{Fail}$ is at most $1/2$ because the output bit is fixed independently of $b$.\nFor a fixing $C$ with a target query, the same conditional probability is at most $\\big(1+\\Pr[\\mathsf{Fail}\\mid C]\\big)/2$ by the pointwise bound $\\mathbf1_{b'=b\\land\\mathsf{Fail}}\\le (1+\\mathbf1_{\\mathsf{Fail}})/2$.\nAveraging the two bounds over the coupled coins and the uniform bit gives $\\Pr[b'=b\\land\\mathsf{Fail}]\\le 1/2+(f_0+f_1)/4$."
+    }
+  ],
+  "edges": [
+    {
+      "kind": "background",
+      "from": "blob:bound-e",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:symbolic-game",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:we",
+      "to": "new:half"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:half",
+        "cor:ext-error"
+      ],
+      "by": [
+        "new:half"
+      ],
+      "argument": "The bound is the exact demanded inequality in the same experiment."
+    }
+  ]
 }

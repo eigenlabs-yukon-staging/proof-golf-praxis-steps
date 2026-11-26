@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
+  "title": "Prune unused results and prove the conditioned failure bound",
   "claims": [
-    "substitution.json is a VALID substitution of the Praxis paper DAG in the sense of rules.md: structural checks S1 to S8 pass on exactly these bytes, and the verifier lists no semantic obligation for it."
+    "substitution.json is a VALID substitution of the Praxis paper DAG in the sense of rules.md: structural checks S1 to S8 pass on exactly these bytes, and each of the 2 semantic obligations the verifier lists for it (O-discharge, O-proof, O-cite) holds as stated, with the same constants, bounds and hypotheses."
   ],
   "experiments": [],
   "checks": [
@@ -10,7 +10,7 @@
       "check": "paperdag_gate",
       "inputs": {
         "substitution": [
-          "eNpNjjsOgzAQBXtOsaIGBWPAMWWuEaVYs2uwxE/YpIly9/ApSDn7RqP9RACxnZYBQ1xDPOPMS0rYpn41PriwBjeNNxEnu2fQ8241QrDQVhBmVktCtDLThFprLKqSc0ZJwiqbF6oSrE2pVMVWiezOhSypOGtbvT9yjy3bu5FrCB3D8QKgh3k1vfMdUwLjFDo3trDwML3/D0jEdObObes9Xwdv0wVMLfsLyfmmw6U99egb/QC7gU46"
+          "eNq1VE1r4zAQvfdXiGDYliZt3KTNJrCHpVDYW1n2VocgWSNb1JZSfSQNIf99R7KTONt2Fwp7MWg0fvPmzdNszwjpCW1q6noz0lvSJZgBp8XAemaddN5Jra7TXj/kMWohZOVpCulUpJwOxXTEKRWj4ZTT6XRKx3e3cAN0xFMxETfjyV0KU3Y7mdyBmKTDrzAe3fJxg4boVYR7NF4B8cpb4MSA9ZWzhCpOlkavgLgSSK4Vl4EKZggqK2+AMO0Vb6AM1JiJWE94wnMF9WwNg1JyqYqY0gYNVc8DRNnHsMJyVtoBlzUoi/j7C3h1GO/+WtJKdG+Z6eFhHutTzg/Ft/GLQRliPQXr7q8Yf5Yq3iBoTY/hijKoQvz+r73GXEVraFKNgdyRwoNtJENmhubh78O/+CeYVkW/rI6KIJB11AG2Hof/Q8WsFoIyWUm3wSNaIsjj+iTJskfzxL58Y1lWYbksQ9+UVmwfsNZujkEg6fXN5blYDC/FIr24HidXx2oIVVGpTpokWh25hfkjrK5V6MeW1GCEbWKCW2tSY5gW0OFkO/A4TC0C+IM2hBIhX7FXktwnRIu2hlT2eGgLehX6ahv5uVtkWZKQtXQlUZo4agpw5MWD2fRPrUirYFC21wlhk4+USYjE8ThSa+tIggolhEFO0fARUnu39I4w6UIe8kZaaBJYAn6Uq1rw5CpTb1qLROk7PC165EOyXTpZxmRxnl7G2Z7yxpPk5H4eUy4i7WYYS1TSraVtnbkXkIl0sf1IhF20Ryx0yP0jI5TAJr+vwNAidLgffKyCo1t1nYwqNRMNxg9Rr2RYZVHIQq7AftKw0VC7w+sGXoB9+77375jR/Lkwpw9UGF3Hu0qzWSQ/gOOt0yeboSnX/yS63dRMVzIfFGEp/J8a638BH7Ti0uZl8OJbvYKMh+h7azXGcm1muIEGYIw2vTY+P1Rnm1OIUx7dTCTh95vtV7k3Khq/2XG44QiHGj0RHxu8eNq8DHV8Pcc10/XE2e7sNwL6MQw="
         ]
       }
     }
