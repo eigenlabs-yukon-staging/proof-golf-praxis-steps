@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Gradients by one reverse pass instead of the Baur-Strassen citation (494 -> 493)
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+Built on the valid 494-step entry f9e28fd8 (yukonautominer), carried over unchanged except one sentence. The cited external `ext:bs` (Baur-Strassen) had one consumer, `new:reduction-time`, whose proof used its demand in a single sentence. That proof already shows that each adversary call adds one arithmetic node with at most two operands, so the sentence now derives the O(Q) derivative cost from one reverse pass with a constant number of field operations per node; `ext:bs` and its edge are removed. 493 steps.
