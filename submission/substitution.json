@@ -1,9 +1,129 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Prune unused results and use one vanishing criterion for both QAP identities",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "ext:hs",
+    "lem:half",
+    "ext:br",
+    "lem:gp-rank",
+    "lem:qap",
+    "ext:aur"
+  ],
+  "add": [
+    {
+      "id": "new:half",
+      "kind": "lemma",
+      "label": "Conditioned failure bound",
+      "name": "Correct guess and extraction failure under the coupling",
+      "statement": "In the extractability experiment, $\\Pr[b'=b\\land\\mathsf{Fail}]\\le 1/2+(f_0+f_1)/4$.",
+      "explain": "Condition on the coupled randomness shared by the two message experiments.",
+      "proof": "For a fixing $C$ of the coins of the coupled run $\\mathsf{R}_\\$$ with no target query, the conditional probability of $b'=b\\land\\mathsf{Fail}$ is at most $1/2$ because the output bit is fixed independently of $b$.\nFor a fixing $C$ with a target query, the same conditional probability is at most $\\big(1+\\Pr[\\mathsf{Fail}\\mid C]\\big)/2$ by the pointwise bound $\\mathbf1_{b'=b\\land\\mathsf{Fail}}\\le (1+\\mathbf1_{\\mathsf{Fail}})/2$.\nAveraging the two bounds over the coupled coins and the uniform bit gives $\\Pr[b'=b\\land\\mathsf{Fail}]\\le 1/2+(f_0+f_1)/4$."
+    },
+    {
+      "id": "new:gp-rank",
+      "kind": "lemma",
+      "label": "Guessing probability bounds",
+      "name": "Pivot-column conditioning",
+      "statement": "For a stack $\\mathbf W$, let $A$ be the matrix obtained by stacking its cells vertically. Then $\\operatorname{gp}(\\mathbf W)\\le g^{-\\operatorname{rank}\\mathbf W}$. For every $v$ in its row space, $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$.",
+      "explain": "Condition on the nonpivot coordinates of the independent input to the sampler.",
+      "proof": "Choose a basis of columns indexed by $J$, including column $0$ whenever it is nonzero.\nCondition on $r_i$ for $i\\in[N]\\setminus J$, which fixes the contribution of all columns outside $J$ because column $0$ is zero if excluded.\nThe independence of the columns indexed by $J$ implies each fixed value of $Ar$ has at most one possible assignment to $r_J$.\nThe conditional probability of any specified $r_J$ is at most $g^{-|J|}$ by the sampler's independent choices on $[N]$ and its conditional uniformity at $0$.\nAveraging gives $\\operatorname{gp}(\\mathbf W)\\le g^{-|J|}$ since $|J|=\\operatorname{rank}\\mathbf W$.\nFor a row-space vector $v$, choose $a$ with $v^\\top=a^\\top A$.\nFor each $u$, event inclusion gives $\\Pr[Ar=u]\\le\\Pr[v^\\top r=a^\\top u]$.\nTaking maxima gives $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$."
+    },
+    {
+      "id": "new:qap",
+      "kind": "lemma",
+      "label": "Unified QAP criterion",
+      "name": "Single vanishing test for both division identities",
+      "statement": "For an admissible choice of evaluation points and a symmetric matrix $W \\in \\mathbb{F}_q^{(N+1) \\times (N+1)}$, the following are equivalent:\n\n \n(a) $W$ passes the tests of $S$ (Definition 4.2);\n(b) $P_W(X) - W_{00}\\, L_\\rho(X) = h(X)\\, Z(X)\\, (X - \\rho) + Z_0(X)\\, R(X)$ for a polynomial $h(X)$ and an allowed polynomial $R(X)$;\n(c) $P_W(X) = h'(X)\\, Z(X) + Z_0(X)\\, R(X)$ for a polynomial $h'(X)$ and an allowed polynomial $R(X)$.\n\nIn (b) and (c), $R(X)$ is the polynomial $R_W(X) \\in \\mathbb{F}_q^{<\\nu n_{\\mathsf{c}}}[X]$ with $R_W(p) = P_W(p)/Z_0(p)$ for every $p$ in the cosets, $h(X) \\in \\mathbb{F}_q^{<D-1}[X]$, and $h'(X) \\in \\mathbb{F}_q^{<D}[X]$.\n\nFor the proof let $F_e=P_W-eW_{00}L_\\rho-Z_0R_W$ and $Z_e=Z(X)(X-\\rho)^e$ for $e\\in\\{0,1\\}$.",
+      "explain": "Treat the key and nonkey divisors uniformly by a one-bit parameter.",
+      "proof": "At each coset point $p$, interpolation of $R_W$ gives $F_e(p)=0$.\nAt $d_0$ and also at $\\rho$ if $e=1$, the QAP value table gives $F_e=0$.\nAt each $d_j$ with $j\\in[N]$, the same table gives $F_e(d_j)=W_{jj}-W_{0j}$.\nBecause $Z_e$ has exactly these distinct roots, the factor theorem gives $Z_e\\mid F_e$ exactly when all Booleanity tests pass.\nEvaluating either proposed identity on a coset point gives $R(p)=P_W(p)/Z_0(p)$.\nThe degree bound on any allowed $R$ makes this interpolation unique, so $R=R_W$.\nBy the coset-sum criterion for an allowed remainder, $R_W$ is allowed exactly when all constraint tests pass.\nThe QAP degree bounds give $\\deg F_e\\le 2D-2$.\nSince $\\deg Z_e=D-1+e$, its quotient when the division is exact has degree at most $D-1-e$."
+    }
+  ],
+  "edges": [
+    {
+      "kind": "background",
+      "from": "blob:bound-e",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:symbolic-game",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:we",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:stacks-gp",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:sampler-search",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:qap",
+      "to": "new:qap"
+    },
+    {
+      "kind": "background",
+      "from": "blob:tests",
+      "to": "new:qap"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:half",
+        "cor:ext-error"
+      ],
+      "by": [
+        "new:half"
+      ],
+      "argument": "The bound is the exact demanded inequality in the same experiment."
+    },
+    {
+      "edge": [
+        "lem:gp-rank",
+        "lem:heavy"
+      ],
+      "by": [
+        "new:gp-rank"
+      ],
+      "argument": "Rank at least four gives g^(\u2212rank) \u2264 g^(\u22124), below \u03b8 by (P3). The second inequality applies to the row-space kernel vector, and heaviness gives gp(W)>\u03b8."
+    },
+    {
+      "edge": [
+        "lem:qap",
+        "lem:honest"
+      ],
+      "by": [
+        "new:qap"
+      ],
+      "argument": "The replacement states the same equivalence with the exact quotient and remainder bounds, so it supplies the indicated implication."
+    },
+    {
+      "edge": [
+        "lem:qap",
+        "lem:view"
+      ],
+      "by": [
+        "new:qap"
+      ],
+      "argument": "The replacement states the same equivalence with the exact quotient and remainder bounds, so it supplies the indicated implication."
+    }
+  ]
 }
