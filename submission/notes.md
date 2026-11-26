@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Closed cut and supporting probability bounds
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The cut removes unused results and their private citation. The replacement proofs cover the conditioned failure bound, the guessing-probability inequalities, and the ledger inequality. The ledger proof computes the exact gap between the quadratic and its endpoint chord. All four targets remain.
