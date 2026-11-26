@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Closed cut and integer-hull lifting
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The substitution preserves the probability and ledger bounds from the prior cut. For the short-multiple search, it keeps a basis of each bounded prefix span and enumerates the vertices of a fixed-dimensional integer hull at each extension. The resulting lift remains deterministic with polynomial running time. All four targets remain.

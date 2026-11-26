@@ -1,9 +1,274 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Prune unused results and find short multiples via integer hulls",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "ext:hs",
+    "lem:half",
+    "ext:br",
+    "lem:gp-rank",
+    "lem:ledger",
+    "lem:charged",
+    "lem:lift",
+    "ext:len"
+  ],
+  "add": [
+    {
+      "id": "new:half",
+      "kind": "lemma",
+      "label": "Conditioned failure bound",
+      "name": "Correct guess and extraction failure under the coupling",
+      "statement": "In the extractability experiment, $\\Pr[b'=b\\land\\mathsf{Fail}]\\le 1/2+(f_0+f_1)/4$.",
+      "explain": "Condition on the coupled randomness shared by the two message experiments.",
+      "proof": "For a fixing $C$ of the coins of the coupled run $\\mathsf{R}_\\$$ with no target query, the conditional probability of $b'=b\\land\\mathsf{Fail}$ is at most $1/2$ because the output bit is fixed independently of $b$.\nFor a fixing $C$ with a target query, the same conditional probability is at most $\\big(1+\\Pr[\\mathsf{Fail}\\mid C]\\big)/2$ by the pointwise bound $\\mathbf1_{b'=b\\land\\mathsf{Fail}}\\le (1+\\mathbf1_{\\mathsf{Fail}})/2$.\nAveraging the two bounds over the coupled coins and the uniform bit gives $\\Pr[b'=b\\land\\mathsf{Fail}]\\le 1/2+(f_0+f_1)/4$."
+    },
+    {
+      "id": "new:gp-rank",
+      "kind": "lemma",
+      "label": "Guessing probability bounds",
+      "name": "Pivot-column conditioning",
+      "statement": "For a stack $\\mathbf W$, let $A$ be the matrix obtained by stacking its cells vertically. Then $\\operatorname{gp}(\\mathbf W)\\le g^{-\\operatorname{rank}\\mathbf W}$. For every $v$ in its row space, $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$.",
+      "explain": "Condition on the nonpivot coordinates of the independent input to the sampler.",
+      "proof": "Choose a basis of columns indexed by $J$, including column $0$ whenever it is nonzero.\nCondition on $r_i$ for $i\\in[N]\\setminus J$, which fixes the contribution of all columns outside $J$ because column $0$ is zero if excluded.\nThe independence of the columns indexed by $J$ implies each fixed value of $Ar$ has at most one possible assignment to $r_J$.\nThe conditional probability of any specified $r_J$ is at most $g^{-|J|}$ by the sampler's independent choices on $[N]$ and its conditional uniformity at $0$.\nAveraging gives $\\operatorname{gp}(\\mathbf W)\\le g^{-|J|}$ since $|J|=\\operatorname{rank}\\mathbf W$.\nFor a row-space vector $v$, choose $a$ with $v^\\top=a^\\top A$.\nFor each $u$, event inclusion gives $\\Pr[Ar=u]\\le\\Pr[v^\\top r=a^\\top u]$.\nTaking maxima gives $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$."
+    },
+    {
+      "id": "new:ledger",
+      "kind": "lemma",
+      "label": "Ledger interpolation bound",
+      "name": "Security ledger by the quadratic chord gap",
+      "statement": "Under (P5), for every integer $0\\le Q<2^\\lambda$, $E(2Q+2)\\le (Q+1)/2^\\lambda$. Write $U=2^\\lambda-1$ and $F(x)=E(2x+2)-(x+1)/2^\\lambda$.",
+      "explain": "Compute the exact difference between the chord and the quadratic.",
+      "proof": "The first inequality in (P5) gives $F(0)\\le 0$.\nAdding the two inequalities in (P5) gives $F(U)\\le 0$.\nFor $0\\le t\\le1$, expansion gives $F(tU)=(1-t)F(0)+tF(U)-(2\\theta+20\\varepsilon_f)t(1-t)U^2$.\nBounding the three displayed summands by zero gives $F(Q)\\le0$ for $Q\\in[0,U]$."
+    },
+    {
+      "id": "new:charged",
+      "kind": "lemma",
+      "label": "Charged mark bound",
+      "name": "Charged comparisons from symbolic entries",
+      "statement": "With $u=2Q+2$ in the extraction experiment, the probability of a charged first mark is at most $N_{\\mathrm{cmp}}(u)(\\theta+\\varepsilon_f)+(\\binom{L+3u}{2}+L+3u)\\varepsilon_f$. Every run reaching its target query has a first mark of type $\\mathsf{init}$, $\\mathsf{guess}$, charged, or good. Write $\\varpi=\\Omega_{22}\\zeta\\zeta'\\zeta''\\varepsilon$ and $d_f=3D+2n+2K_1+6$.",
+      "explain": "Classify comparison coefficients by their guess-variable degree before applying the grid bound.",
+      "proof": "Use the coupled run $\\mathsf R_\\$$ to determine the first mark by the coupling definition.\nThe symbolic game and the real run agree through the history before the first evaluated collision by the lazy-sampling demand.\nNo first mark is set before any collision or target query by (M1)\u2013(M4).\nA collision of formally unequal received expressions gives $\\mathsf{init}$ by (M1).\nA good collision cannot have a fresh guessed operand as the later entry, because its uncanceled fresh variable would violate the definition of good.\nThe later entry of a good noninitial collision is therefore a result.\nIf a good noninitial collision precedes a target query, (M3) sets a good $\\mathsf{diff}$ mark.\nIf a target query comes first, (M4) sets a guess mark when its label has no entry.\nIf the label has an entry, the agreeing tables identify that entry as a symbolic key value.\nIn that case a good key value gives a good $\\mathsf{key}$ mark by (M4).\nThus every charged first mark is accounted for by a bad collision or a bad key value in the evaluated symbolic game.\nThe monitor definition classifies all first marks as $\\mathsf{init}$, $\\mathsf{guess}$, charged or good.\nBy (M4), a run reaching the target query has a first mark.\n\nIn a fixed symbolic transcript, compare two specified entries or one specified entry with the key.\nIf the comparison contains guesses, choose a nonconstant guess monomial with formally nonzero coefficient.\nThe expression rules make this coefficient a nonzero scalar or a formally nonzero source-group expression.\nAt each fixed $r$, clause (e) of the incoming view result and $\\varepsilon_f<1$ imply that the latter coefficient is nonzero on some valid encryption coins.\nAs $\\varpi$ never vanishes on valid coins, the cleared comparison is a nonzero polynomial at fixed $r$.\nThe cleared guess-free term has degree at most $d_f$ by the incoming degree bound.\nThe cleared coefficients of linear guesses have degree at most $d_f$ because they are cleared constants or source-group values.\nA pairing's product of two linear source expressions makes the coefficient of any quadratic guess monomial a field constant.\nAfter clearing, such a coefficient has degree at most five because $\\varpi$ has five linear factors.\nThe total degree bound is therefore $\\max(d_f,d_f+1,7)=d_f+1$.\nThe grid polynomial bound with uniform guess values and valid encryption coins gives coincidence probability at most $(d_f+1)/(q-D)$.\nThis is at most $\\varepsilon_f$ by its definition.\n\nFor a comparison with no guess variable in a source group, the incoming coincidence bound gives probability at most $\\varepsilon_f$.\nFor one in $\\mathbb G_T$, the incoming bound gives the same probability over encryption coins at any $r$ where the asserted equality is not an identity.\nA comparison of distinct symbolic entries is nonformal by the symbolic game's entry rule.\nA key comparison to $\\kappa$ is nonformal by the incoming bound.\nFor an identity to give a bad event, the mark stack must be light because it is nonzero by the incoming demand.\nAll such $r$ lie in a single fiber of that stack by the incoming identity-locus demand.\nThis fiber has probability at most $\\theta$ by lightness.\nThe total probability of a bad event for a comparison without guesses is therefore at most $\\theta+\\varepsilon_f$.\n\nThere are at most $L+3Q$ entries because each call has at most two operands and one result.\nThis bounds the number of comparison pairs and key tests involving guesses by $\\binom{L+3u}{2}+L+3u$ since $Q\\le u$.\nFor a collision without guesses at call $j$, the later entry is a result since a fresh guess could not cancel.\nIts earlier partner is one of at most $L+3j-1$ entries.\nA key test without guesses involves one of the at most $Q$ results or the two received target-group elements.\nSumming the result-pair and key-test counts gives at most $QL+3Q(Q+1)/2+2$ non-guess comparisons that can account for a charged first mark.\nThis count is at most $N_{\\mathrm{cmp}}(u)$ by substitution of $u=2Q+2$.\nThe union bound using these two comparison counts yields the claimed charged-mark probability."
+    },
+    {
+      "id": "new:integer-hull",
+      "kind": "external",
+      "label": "Fixed-dimensional integer hull",
+      "name": "Computing integer hulls in fixed dimension",
+      "statement": "For a rational polytope given by inequalities in fixed dimension, the vertices of its integer hull can be enumerated in polynomial time in the binary encoding of the inequalities.",
+      "explain": "Use the fixed-dimension vertex enumeration algorithm stated in the introduction.",
+      "ref": {
+        "citation": "R. Hildebrand, T. Oertel and R. Weismantel, Note on the complexity of the mixed-integer hull of a polyhedron, Operations Research Letters 43(3), 279\u2013282 (2015), doi:10.1016/j.orl.2015.03.002",
+        "locator": "Section 1, first paragraph (p. 1) and vertex-description discussion in the proof of Theorem 5 (p. 4), arXiv:1412.2520v2",
+        "url": "https://arxiv.org/pdf/1412.2520v2",
+        "quote": "Hartman [8] gave a polynomial time algorithm in fixed-dimension to enumerate the vertices of the integer hull of a polyhedron."
+      }
+    },
+    {
+      "id": "new:lift",
+      "kind": "lemma",
+      "label": "Lift by integer hulls",
+      "name": "Deterministic search for a short multiple",
+      "statement": "Let $2\\beta<q$ and $24\\beta^4<q^3$. Given a nonzero $v\\in\\mathbb F_q^{N+1}$ with $v_0=0$, there is a deterministic lifting algorithm returning a short multiple when one exists and $\\bot$ otherwise, in time polynomial in $N$ and $\\log q$. In the ordering that deletes coordinate zero and moves the first nonzero index to the front, write $L_i=\\{x\\in\\mathbb Z^i:x_j\\equiv x_1 v_j/v_1\\pmod q\\text{ for }j\\le i\\}$. Call vectors bounded if their infinity norm is at most $\\beta$.",
+      "explain": "Find a bounded basis for each prefix span by enumerating the vertices of an integer hull in dimension at most four.",
+      "proof": "The nonzero bounded points of $L_N$ give exactly the short multiples after restoring coordinate zero, since $\\beta<q$.\nEvery four-row minor of a matrix with four columns from $L_i$ is divisible by $q^3$ by integer column elimination on the rank-one reduction.\nIf the columns are bounded, each such minor has absolute value at most $24\\beta^4<q^3$ by the determinant expansion.\nThus the bounded vectors of $L_i$ span a rational space $V_i$ of dimension at most three.\nStart with the empty basis for the zero-length prefix.\nA bounded point of $L_{i+1}$ belongs to $V_i\\times\\mathbb Q$ by restriction.\nThe lattice $L_{i+1}\\cap(V_i\\times\\mathbb Q)$ has rank at most four by the dimension bound.\nThe lattice $L_{i+1}$ has a basis consisting of the least nonnegative integer lift of $(v_j/v_1)_{j\\le i+1}$ with first entry one, together with $qe_j$ for $2\\le j\\le i+1$.\nCompute its intersection lattice in these coordinates by taking the integer kernel of the rational equations for $V_i\\times\\mathbb Q$ with denominators cleared.\nCompute a column Hermite form of $\\binom{A}{I}$ with pivots ordered by row from top to bottom.\nBy unimodularity and independence of the nonzero upper columns, the lower parts of the zero-upper columns form an integer kernel basis.\nRational elimination and the Hermite bound give polynomial bit complexity in $N$ and $\\log q$ because the two input bases have entries of magnitude at most $q$.\nIn the intersection lattice basis, the box cuts out a bounded rational polytope in at most four variables.\nEnumerate the vertices of its integer hull by the incoming fixed-dimension theorem.\nIn the original prefix coordinates, the hull vertices are bounded lattice points that span every bounded lattice point by the convex hull definition.\nKeep a maximal linearly independent subset of these vertices as the next $V_{i+1}$ basis.\nAfter the $N$ extensions, return a basis point restored to the original coordinates if the basis is nonempty, and $\\bot$ otherwise.\nThe $N$ polynomial-time extensions therefore have total time polynomial in $N$ and $\\log q$."
+    }
+  ],
+  "edges": [
+    {
+      "kind": "background",
+      "from": "blob:bound-e",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:symbolic-game",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:we",
+      "to": "new:half"
+    },
+    {
+      "kind": "background",
+      "from": "blob:stacks-gp",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:sampler-search",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:gp-rank"
+    },
+    {
+      "kind": "background",
+      "from": "blob:bound-e",
+      "to": "new:ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:ggm",
+      "to": "new:charged"
+    },
+    {
+      "kind": "background",
+      "from": "blob:bound-e",
+      "to": "new:charged"
+    },
+    {
+      "kind": "background",
+      "from": "blob:monitor",
+      "to": "new:charged"
+    },
+    {
+      "kind": "background",
+      "from": "blob:symbolic-game",
+      "to": "new:charged"
+    },
+    {
+      "kind": "background",
+      "from": "blob:expressions",
+      "to": "new:charged"
+    },
+    {
+      "kind": "background",
+      "from": "blob:stacks-gp",
+      "to": "new:charged"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:charged"
+    },
+    {
+      "kind": "background",
+      "from": "blob:enc",
+      "to": "new:charged"
+    },
+    {
+      "kind": "uses",
+      "from": "lem:view",
+      "to": "new:charged",
+      "demand": "For a nonidentically zero target-group comparison at fixed r, or a formally unequal source-group pair, coincidence over valid coins has probability at most \u03b5_f. No expression equals \u03ba formally. An identity in a nonformal target comparison prescribes one fiber of the nonzero mark stack."
+    },
+    {
+      "kind": "uses",
+      "from": "lem:degree",
+      "to": "new:charged",
+      "demand": "After clearing by \u03d6, a target expression minus \u03c7\u03ba and a difference of source-group values are polynomials of total degree at most d_f."
+    },
+    {
+      "kind": "uses",
+      "from": "ext:sz",
+      "to": "new:charged",
+      "demand": "A nonzero polynomial of degree at most d_f+1 in the independent valid coins and uniform guess variables vanishes with probability at most (d_f+1)/(q\u2212D)."
+    },
+    {
+      "kind": "uses",
+      "from": "ext:shoup",
+      "to": "new:charged",
+      "demand": "Lazy sampling of the label maps makes the symbolic and real histories agree up to the first evaluated collision."
+    },
+    {
+      "kind": "background",
+      "from": "blob:kernel-short",
+      "to": "new:lift"
+    },
+    {
+      "kind": "uses",
+      "from": "new:integer-hull",
+      "to": "new:lift",
+      "demand": "The vertices of the integer hull of a bounded rational polytope given by inequalities can be enumerated in polynomial time in fixed dimension."
+    },
+    {
+      "kind": "uses",
+      "from": "ext:kb",
+      "to": "new:lift",
+      "demand": "Hermite normal forms in polynomial time, with entries of polynomial size."
+    },
+    {
+      "kind": "background",
+      "from": "blob:ggm",
+      "to": "new:lift"
+    },
+    {
+      "kind": "background",
+      "from": "blob:inverse-conditions",
+      "to": "new:lift"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:half",
+        "cor:ext-error"
+      ],
+      "by": [
+        "new:half"
+      ],
+      "argument": "The bound is the exact demanded inequality in the same experiment."
+    },
+    {
+      "edge": [
+        "lem:gp-rank",
+        "lem:heavy"
+      ],
+      "by": [
+        "new:gp-rank"
+      ],
+      "argument": "Rank at least four gives g^(\u2212rank) \u2264 g^(\u22124), below \u03b8 by (P3). The second inequality applies to the row-space kernel vector, and heaviness gives gp(W)>\u03b8."
+    },
+    {
+      "edge": [
+        "lem:ledger",
+        "thm:extraction"
+      ],
+      "by": [
+        "new:ledger"
+      ],
+      "argument": "The statement gives the exact bound under (P5) throughout the required range."
+    },
+    {
+      "edge": [
+        "lem:charged",
+        "thm:extraction"
+      ],
+      "by": [
+        "new:charged"
+      ],
+      "argument": "The statement gives the exact charged-mark probability bound with u=2Q+2 and the required target coverage."
+    },
+    {
+      "edge": [
+        "lem:lift",
+        "lem:reduction"
+      ],
+      "by": [
+        "new:lift"
+      ],
+      "argument": "The algorithm gives a short multiple exactly when one exists."
+    },
+    {
+      "edge": [
+        "lem:lift",
+        "prop:reduction-time"
+      ],
+      "by": [
+        "new:lift"
+      ],
+      "argument": "The lifting time is polynomial in N and log q."
+    }
+  ]
 }
