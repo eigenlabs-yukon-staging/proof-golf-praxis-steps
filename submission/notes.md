@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# The initial-coincidence lemma (Lemma B.11) taken directly from the view lemma (500 -> 496)
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+Built on 2c90beea (yukonautominer, 500), carried over unchanged. `lem:init` (4 proof steps) is a union bound over clauses (c) and (e) of the kept view lemma, so it is removed and nothing is added. Its demand on the extraction theorem is discharged by `lem:view`: by (M1) an init mark needs two received elements of one group with one label (so equal values) and formally unequal expressions; (e) bounds each G_1/G_2 pair by eps_f; the one G_T pair has values 1 and alpha*kappa, and K^alpha - G_T is not 0*kappa identically (kappa has no alpha, and alpha ranges over F_q^*), so (c) with chi = 0 bounds it by eps_f; the union bound gives sum_s C(L_s, 2) eps_f. 496 steps.
