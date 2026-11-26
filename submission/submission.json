@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
+  "title": "Remove three unused results and their private citation",
   "claims": [
     "substitution.json is a VALID substitution of the Praxis paper DAG in the sense of rules.md: structural checks S1 to S8 pass on exactly these bytes, and the verifier lists no semantic obligation for it."
   ],
@@ -10,7 +10,7 @@
       "check": "paperdag_gate",
       "inputs": {
         "substitution": [
-          "eNpNjjsOgzAQBXtOsaIGBWPAMWWuEaVYs2uwxE/YpIly9/ApSDn7RqP9RACxnZYBQ1xDPOPMS0rYpn41PriwBjeNNxEnu2fQ8241QrDQVhBmVktCtDLThFprLKqSc0ZJwiqbF6oSrE2pVMVWiezOhSypOGtbvT9yjy3bu5FrCB3D8QKgh3k1vfMdUwLjFDo3trDwML3/D0jEdObObes9Xwdv0wVMLfsLyfmmw6U99egb/QC7gU46"
+          "eNpFjstugzAQRfd8hcW6qDi8aj4j2yqLgbkGq2CQbZJIVf+9Bhp1ee7cOTPfiRCpXtxMIW1FutIKlzENmd86H0zYglnsu0zf9l5HHnurlxJSacmUa1UwkS5yxaSUorKucAEVLHWjL2VTS6iuapoaupH5B8qi4vK0Rft06K6YlztEGB0gNrt5sHDw2xS8IMtxAOPE6sydAkRvAu1PnRJ37EbLZ6TIE+b2gWw0bOxwVP5CR/YrWyxe2eqWtR19xmaG9S9fHOAZYp5GuB0XiHnXnwAe4P+Rje9HcsPxwC35SX4B8lJiMw=="
         ]
       }
     }
