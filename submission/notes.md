@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Extraction proofs, view identities, and direct demands
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The cut preserves the reviewed extraction proofs and reduction time, and uses the accepted direct heavy-stack, fiber and QAP discharges. The added view proof derives the hidden-basis support from the full pole coefficient and states the support needed by the reduction explicitly. All four targets remain.
